@@ -2,43 +2,130 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELHADY Cal+</title>
     <style>
-        body { font-family: sans-serif; direction: rtl; margin: 40px; background: #fafafa; }
-        input, button, select { margin: 5px; padding: 5px 10px; }
-        h2 { margin-bottom: 10px; }
-        .tab { margin: 10px 0; }
+        body {
+            font-family: sans-serif;
+            direction: rtl;
+            margin: 20px;
+            background: #fafafa;
+        }
+
+        h2 { text-align: center; color: #333; margin-bottom: 15px; }
+
+        .tab {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
         .tab button {
-            padding: 8px 15px;
+            padding: 10px 15px;
             border: none;
             background: #ddd;
             cursor: pointer;
-            border-radius: 6px;
-            margin-left: 5px;
+            border-radius: 8px;
+            transition: 0.2s;
+            font-size: 16px;
         }
+
         .tab button.active { background: #4CAF50; color: white; }
+
         .section {
             display: none;
             background: white;
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 5px #ccc;
+            margin-top: 10px;
         }
+
         .visible { display: block; }
-        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-        td, th { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background: #eee; }
-        button.deleteBtn {
-            background: #ff6961; color: white; border: none; border-radius: 6px;
-            padding: 5px 8px; cursor: pointer;
+
+        /* الإدخالات والأزرار */
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
         }
+
+        label { font-size: 14px; }
+
+        input, button {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            border: none;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { background: #45a049; }
+
+        button.deleteBtn {
+            background: #ff6961;
+            font-size: 14px;
+            padding: 5px 8px;
+        }
+
         button.deleteBtn:hover { background: #d9534f; }
-        .filter-box { background: #f0f0f0; padding: 10px; border-radius: 8px; margin-top: 10px; }
-        .total-box { background: #e0ffe0; padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: bold; }
+
+        .filter-box, .total-box {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .total-box {
+            background: #e0ffe0;
+            font-weight: bold;
+        }
+
+        /* الجداول */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 600px;
+        }
+
+        td, th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th { background: #eee; }
+
+        /* تجاوب الموبايل */
+        @media (max-width: 600px) {
+            body { margin: 10px; }
+            h2 { font-size: 20px; }
+            .input-group, .filter-box { flex-direction: column; align-items: stretch; }
+            input, button { width: 100%; }
+            button { font-size: 15px; }
+        }
     </style>
 </head>
 <body>
-<h2>📋 ELHADY Cal+</h2>
+<h2>📊 ELHADY Cal+</h2>
 
 <div class="tab">
     <button id="btnPayments" class="active">💰 سجل المدفوعات</button>
@@ -49,84 +136,76 @@
 <div id="paymentsSection" class="section visible">
     <h3>💰 سجل المدفوعات</h3>
 
-    <div>
-        <label>المرسل:</label>
-        <input type="text" id="paySender" placeholder="اسم المرسل">
-        <label>المستلم:</label>
-        <input type="text" id="payReceiver" placeholder="اسم المستلم">
-        <label>المبلغ:</label>
-        <input type="number" id="payAmount" placeholder="المبلغ">
+    <div class="input-group">
+        <label>المرسل:</label><input type="text" id="paySender" placeholder="اسم المرسل">
+        <label>المستلم:</label><input type="text" id="payReceiver" placeholder="اسم المستلم">
+        <label>المبلغ:</label><input type="number" id="payAmount" placeholder="المبلغ">
         <button id="addPayment">➕ إضافة</button>
         <button id="exportPayments">📤 تصدير Excel</button>
         <button id="clearPayments">🗑️ مسح الكل</button>
     </div>
 
     <div class="filter-box">
-        <b>🔎 فلترة السجل:</b><br>
+        <b>🔎 فلترة:</b><br>
         <input type="text" id="filterPaySender" placeholder="بحث بالمرسل">
         <input type="text" id="filterPayReceiver" placeholder="بحث بالمستلم">
-        <label>من:</label>
-        <input type="date" id="filterPayStart">
-        <label>إلى:</label>
-        <input type="date" id="filterPayEnd">
+        <label>من:</label><input type="date" id="filterPayStart">
+        <label>إلى:</label><input type="date" id="filterPayEnd">
         <button id="clearPayFilter">❌ مسح الفلتر</button>
     </div>
 
     <div class="total-box">💵 إجمالي المدفوعات الظاهرة: <span id="totalPayments">0</span> جنيه</div>
 
-    <table id="paymentsTable">
-        <thead>
-        <tr>
-            <th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th>إجراء</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-container">
+        <table id="paymentsTable">
+            <thead>
+            <tr>
+                <th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th>إجراء</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 
 <!-- 🚚 سجل التوريدات -->
 <div id="suppliesSection" class="section">
     <h3>🚚 سجل التوريدات</h3>
 
-    <div>
-        <label>المرسل:</label>
-        <input type="text" id="supSender" placeholder="اسم المرسل">
-        <label>المستلم:</label>
-        <input type="text" id="supReceiver" placeholder="اسم المستلم">
-        <label>الكمية:</label>
-        <input type="number" id="supQty" placeholder="الكمية">
-        <label>النوع:</label>
-        <input type="text" id="supType" placeholder="نوع البضاعة">
+    <div class="input-group">
+        <label>المرسل:</label><input type="text" id="supSender" placeholder="اسم المرسل">
+        <label>المستلم:</label><input type="text" id="supReceiver" placeholder="اسم المستلم">
+        <label>الكمية:</label><input type="number" id="supQty" placeholder="الكمية">
+        <label>النوع:</label><input type="text" id="supType" placeholder="نوع البضاعة">
         <button id="addSupply">➕ إضافة</button>
         <button id="exportSupplies">📤 تصدير Excel</button>
         <button id="clearSupplies">🗑️ مسح الكل</button>
     </div>
 
     <div class="filter-box">
-        <b>🔎 فلترة السجل:</b><br>
+        <b>🔎 فلترة:</b><br>
         <input type="text" id="filterSupSender" placeholder="بحث بالمرسل">
         <input type="text" id="filterSupReceiver" placeholder="بحث بالمستلم">
-        <label>من:</label>
-        <input type="date" id="filterSupStart">
-        <label>إلى:</label>
-        <input type="date" id="filterSupEnd">
+        <label>من:</label><input type="date" id="filterSupStart">
+        <label>إلى:</label><input type="date" id="filterSupEnd">
         <button id="clearSupFilter">❌ مسح الفلتر</button>
     </div>
 
     <div class="total-box">📦 إجمالي الكمية الظاهرة: <span id="totalSupplies">0</span> وحدة</div>
 
-    <table id="suppliesTable">
-        <thead>
-        <tr>
-            <th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th>إجراء</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-container">
+        <table id="suppliesTable">
+            <thead>
+            <tr>
+                <th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th>إجراء</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
 <script>
     // 🔁 التبويب
     const paymentsBtn = document.getElementById('btnPayments');
