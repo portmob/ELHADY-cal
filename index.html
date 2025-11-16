@@ -1,363 +1,106 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>ELHADY Cal+</title>
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Ionicons (filled) -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <style>
-        :root {
-            --bg: #000;
-            --text: #fff;
-            --outline: #2196f3;
-            --outline-hover: #42a5f5;
-            --card: #111;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            direction: rtl;
-            margin: 0;
-            padding: 20px;
-        }
-        h2 { text-align: center; margin-bottom: 20px; }
-
-        .tab {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .tab button {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 10px;
-            background: #333;
-            color: var(--text);
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tab button.active { background: var(--btn); }
-
-        .section {
-            display: none;
-            background: var(--card);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 0 8px #000a;
-            margin-top: 10px;
-        }
-        .visible { display: block; }
-
-        .input-group, .filter-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        input, button {
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            font-size: 15px;
-        }
-        input {
-            background: #222;
-            color: var(--text);
-        }
-        /* الأزرار — Bootstrap Outline Style */
-        button {
-            background: transparent;
-            color: var(--outline);
-            border: 2px solid var(--outline);
-            border-radius: 10px;
-            padding: 8px 14px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover,
-        button:focus {
-            background: var(--outline);
-            color: #fff;
-            box-shadow: 0 0 10px var(--outline-hover);
-        }
-
-        /* زر الحذف بالأحمر */
-        button.deleteBtn {
-            border-color: #f44336;
-            color: #f44336;
-        }
-        button.deleteBtn:hover {
-            background: #f44336;
-            color: white;
-            box-shadow: 0 0 8px #f44336;
-        }
-
-        /* الزر النشط في التبويب */
-        .tab button.active {
-            background: var(--outline);
-            color: white;
-        }
-
-        /* ضبط حجم الأزرار للموبايل */
-        @media (max-width:600px) {
-            button { width: 100%; font-size: 16px; }
-        }
-        .total-box {
-            background: #0d47a1;
-            color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        .table-container { overflow-x: auto; }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 600px;
-            color: var(--text);
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 8px;
-            text-align: center;
-        }
-        th { background: #111; }
-
-        /* Splash Screen */
-        #splash {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            z-index: 9999;
-            transition: opacity 1s;
-        }
-        #splash img {
-            width: 120px;
-            height: 120px;
-            border-radius: 25%;
-        }
-        #splash h1 {
-            color: var(--btn);
-            margin-top: 15px;
-            font-size: 26px;
-        }
-
-        @media (max-width:600px){
-            .input-group, .filter-box{flex-direction:column;}
-            input,button{width:100%;}
-        }
-    </style>
 </head>
 <body>
-<div id="splash">
+<!-- Splash -->
+<div id="splash" class="splash">
     <img src="icon.png" alt="logo">
-    <h1>ELHADY Cal+</h1>
+    <h1>ELHADY</h1>
 </div>
 
-<h2><ion-icon name="calculator-outline"></ion-icon> ELHADY Cal+</h2>
-
-<div class="tab">
-    <button id="btnPayments" class="active"><ion-icon name="cash-outline"></ion-icon> المدفوعات</button>
-    <button id="btnSupplies"><ion-icon name="cube-outline"></ion-icon> التوريدات</button>
-</div>
-
-<div id="paymentsSection" class="section visible">
-    <div class="input-group">
-        <input type="text" id="paySender" placeholder="المرسل">
-        <input type="text" id="payReceiver" placeholder="المستلم">
-        <input type="number" id="payAmount" placeholder="المبلغ">
-        <button id="addPayment"><ion-icon name="add-outline"></ion-icon> إضافة</button>
+<header class="header">
+    <h2><ion-icon name="calculator"></ion-icon> ELHADY</h2>
+    <div class="tab">
+        <button id="btnPayments" class="tab-btn active"><ion-icon name="cash"></ion-icon> المدفوعات</button>
+        <button id="btnSupplies" class="tab-btn"><ion-icon name="cube"></ion-icon> التوريدات</button>
     </div>
+</header>
 
-    <div class="filter-box">
-        <input type="text" id="filterPaySender" placeholder="بحث بالمرسل">
-        <input type="text" id="filterPayReceiver" placeholder="بحث بالمستلم">
-        <input type="date" id="filterPayStart">
-        <input type="date" id="filterPayEnd">
-        <button id="clearPayFilter">مسح الفلتر</button>
-    </div>
+<main class="container">
+    <!-- Payments -->
+    <section id="paymentsSection" class="card visible">
+        <div class="card-row top-actions">
+            <button id="openAddPayment" class="outline-btn"><ion-icon name="add-circle"></ion-icon> إضافة</button>
+            <div class="actions-right">
+                <button id="exportPayments" class="outline-btn">📤 تصدير</button>
+                <button id="clearPayments" class="outline-btn">🗑️ مسح الكل</button>
+            </div>
+        </div>
 
-    <div class="total-box">💵 إجمالي المدفوعات: <span id="totalPayments">0</span> جنيه</div>
+        <div class="card-row filters">
+            <input id="filterPaySender" placeholder="بحث بالمرسل" />
+            <input id="filterPayReceiver" placeholder="بحث بالمستلم" />
+            <input id="filterPayStart" type="date" />
+            <input id="filterPayEnd" type="date" />
+            <button id="clearPayFilter" class="outline-btn">مسح الفلتر</button>
+        </div>
 
-    <div class="table-container">
-        <table id="paymentsTable">
-            <thead>
-            <tr>
-                <th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th>إجراء</th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</div>
+        <div class="total-box">💵 إجمالي المدفوعات الظاهرة: <span id="totalPayments">0</span> جنيه</div>
 
-<div id="suppliesSection" class="section">
-    <div class="input-group">
-        <input type="text" id="supSender" placeholder="المرسل">
-        <input type="text" id="supReceiver" placeholder="المستلم">
-        <input type="number" id="supQty" placeholder="الكمية">
-        <input type="text" id="supType" placeholder="النوع">
-        <button id="addSupply"><ion-icon name="add-outline"></ion-icon> إضافة</button>
-    </div>
+        <div class="table-wrap">
+            <table id="paymentsTable" aria-label="سجل المدفوعات">
+                <thead>
+                <tr><th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th>إجراء</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
 
-    <div class="filter-box">
-        <input type="text" id="filterSupSender" placeholder="بحث بالمرسل">
-        <input type="text" id="filterSupReceiver" placeholder="بحث بالمستلم">
-        <input type="date" id="filterSupStart">
-        <input type="date" id="filterSupEnd">
-        <button id="clearSupFilter">مسح الفلتر</button>
-    </div>
+            <div class="cards" id="paymentsCards" aria-hidden="true"></div>
+        </div>
+    </section>
 
-    <div class="total-box">📦 إجمالي الكمية: <span id="totalSupplies">0</span> وحدة</div>
+    <!-- Supplies -->
+    <section id="suppliesSection" class="card" style="display:none;">
+        <div class="card-row top-actions">
+            <button id="openAddSupply" class="outline-btn"><ion-icon name="add-circle"></ion-icon> إضافة</button>
+            <div class="actions-right">
+                <button id="exportSupplies" class="outline-btn">📤 تصدير</button>
+                <button id="clearSupplies" class="outline-btn">🗑️ مسح الكل</button>
+            </div>
+        </div>
 
-    <div class="table-container">
-        <table id="suppliesTable">
-            <thead>
-            <tr>
-                <th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th>إجراء</th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</div>
+        <div class="card-row filters">
+            <input id="filterSupSender" placeholder="بحث بالمرسل" />
+            <input id="filterSupReceiver" placeholder="بحث بالمستلم" />
+            <input id="filterSupStart" type="date" />
+            <input id="filterSupEnd" type="date" />
+            <button id="clearSupFilter" class="outline-btn">مسح الفلتر</button>
+        </div>
 
+        <div class="total-box">📦 إجمالي الكمية الظاهرة: <span id="totalSupplies">0</span> وحدة</div>
+
+        <div class="table-wrap">
+            <table id="suppliesTable" aria-label="سجل التوريدات">
+                <thead>
+                <tr><th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th>إجراء</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="cards" id="suppliesCards" aria-hidden="true"></div>
+        </div>
+    </section>
+</main>
+
+<!-- Modal Backdrop -->
+<div id="modalBackdrop" class="modal-backdrop" aria-hidden="true"></div>
+
+<!-- XLSX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<script>
-    // Splash screen hide
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.getElementById('splash').style.opacity = '0';
-            setTimeout(()=>document.getElementById('splash').remove(),800);
-        }, 1200);
-    });
-
-    // WebApp installable
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
-    }
-
-    // تبويب بين المدفوعات والتوريدات
-    const paymentsBtn = document.getElementById('btnPayments');
-    const suppliesBtn = document.getElementById('btnSupplies');
-    const paymentsSection = document.getElementById('paymentsSection');
-    const suppliesSection = document.getElementById('suppliesSection');
-
-    paymentsBtn.onclick = () => {
-        paymentsBtn.classList.add('active');
-        suppliesBtn.classList.remove('active');
-        paymentsSection.classList.add('visible');
-        suppliesSection.classList.remove('visible');
-    };
-    suppliesBtn.onclick = () => {
-        suppliesBtn.classList.add('active');
-        paymentsBtn.classList.remove('active');
-        suppliesSection.classList.add('visible');
-        paymentsSection.classList.remove('visible');
-    };
-
-    // بيانات
-    let payments = JSON.parse(localStorage.getItem('payments') || '[]');
-    let supplies = JSON.parse(localStorage.getItem('supplies') || '[]');
-
-    function saveData() {
-        localStorage.setItem('payments', JSON.stringify(payments));
-        localStorage.setItem('supplies', JSON.stringify(supplies));
-    }
-
-    function renderPayments() {
-        const sender = filterPaySender.value.toLowerCase();
-        const receiver = filterPayReceiver.value.toLowerCase();
-        const start = filterPayStart.value ? new Date(filterPayStart.value) : null;
-        const end = filterPayEnd.value ? new Date(filterPayEnd.value) : null;
-        const tbody = document.querySelector('#paymentsTable tbody');
-        tbody.innerHTML = '';
-        let total = 0;
-        payments.filter(p=>{
-            const d=new Date(p.date);
-            return p.sender.toLowerCase().includes(sender)
-                && p.receiver.toLowerCase().includes(receiver)
-                && (!start||d>=start)&&(!end||d<=end);
-        }).forEach((p,i)=>{
-            total += Number(p.amount);
-            const tr=document.createElement('tr');
-            tr.innerHTML=`<td>${i+1}</td><td>${p.sender}</td><td>${p.receiver}</td>
-        <td>${p.amount}</td><td>${new Date(p.date).toLocaleString()}</td>
-        <td><button class='deleteBtn' data-i='${i}'>حذف</button></td>`;
-            tbody.appendChild(tr);
-        });
-        totalPayments.textContent = total.toLocaleString();
-        tbody.querySelectorAll('.deleteBtn').forEach(b=>{
-            b.onclick=e=>{
-                payments.splice(e.target.dataset.i,1);
-                saveData(); renderPayments();
-            };
-        });
-    }
-
-    addPayment.onclick=()=>{
-        if(!paySender.value||!payReceiver.value||!payAmount.value)return alert('أدخل البيانات');
-        payments.push({sender:paySender.value,receiver:payReceiver.value,amount:payAmount.value,date:new Date()});
-        saveData(); renderPayments();
-        paySender.value=payReceiver.value=payAmount.value='';
-    };
-    clearPayFilter.onclick=()=>{filterPaySender.value=filterPayReceiver.value=filterPayStart.value=filterPayEnd.value='';renderPayments();};
-    [filterPaySender,filterPayReceiver,filterPayStart,filterPayEnd].forEach(el=>el.oninput=renderPayments);
-
-    function renderSupplies(){
-        const sender = filterSupSender.value.toLowerCase();
-        const receiver = filterSupReceiver.value.toLowerCase();
-        const start = filterSupStart.value ? new Date(filterSupStart.value) : null;
-        const end = filterSupEnd.value ? new Date(filterSupEnd.value) : null;
-        const tbody = document.querySelector('#suppliesTable tbody');
-        tbody.innerHTML='';
-        let total=0;
-        supplies.filter(s=>{
-            const d=new Date(s.date);
-            return s.sender.toLowerCase().includes(sender)
-                && s.receiver.toLowerCase().includes(receiver)
-                && (!start||d>=start)&&(!end||d<=end);
-        }).forEach((s,i)=>{
-            total+=Number(s.qty);
-            const tr=document.createElement('tr');
-            tr.innerHTML=`<td>${i+1}</td><td>${s.sender}</td><td>${s.receiver}</td>
-        <td>${s.qty}</td><td>${s.type}</td><td>${new Date(s.date).toLocaleString()}</td>
-        <td><button class='deleteBtn' data-i='${i}'>حذف</button></td>`;
-            tbody.appendChild(tr);
-        });
-        totalSupplies.textContent = total.toLocaleString();
-        tbody.querySelectorAll('.deleteBtn').forEach(b=>{
-            b.onclick=e=>{
-                supplies.splice(e.target.dataset.i,1);
-                saveData(); renderSupplies();
-            };
-        });
-    }
-
-    addSupply.onclick=()=>{
-        if(!supSender.value||!supReceiver.value||!supQty.value||!supType.value)return alert('أدخل كل البيانات');
-        supplies.push({sender:supSender.value,receiver:supReceiver.value,qty:supQty.value,type:supType.value,date:new Date()});
-        saveData(); renderSupplies();
-        supSender.value=supReceiver.value=supQty.value=supType.value='';
-    };
-    clearSupFilter.onclick=()=>{filterSupSender.value=filterSupReceiver.value=filterSupStart.value=filterSupEnd.value='';renderSupplies();};
-    [filterSupSender,filterSupReceiver,filterSupStart,filterSupEnd].forEach(el=>el.oninput=renderSupplies);
-
-    renderPayments(); renderSupplies();
-</script>
+<!-- App JS -->
+<script src="app.js"></script>
 </body>
 </html>
