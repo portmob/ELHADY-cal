@@ -5,6 +5,13 @@
 
 /* reset */
 *{box-sizing:border-box;margin:0;padding:0}
+.screen {
+  display: none !important;
+}
+
+.screen.visible {
+  display: block !important;
+}
 html,body{height:100%}
 body{
     font-family:-apple-system,"SF Pro Text","SF Pro Display",BlinkMacSystemFont,Segoe UI,Roboto,Arial;
@@ -117,6 +124,43 @@ body.dark .modal{background:#150f24;color:#fff}
 .modal input{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.08);margin-bottom:10px;font-size:15px}
 body.dark .modal input{background:#2c233d;border:1px solid rgba(255,255,255,0.04);color:#fff}
 .modal .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
+/* MOBILE FRIENDLY TABLES */
+.list-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 14px;
+}
+
+.nice-table {
+  width: 700px; /* forced width for mobile scrolling */
+  background: transparent;
+}
+
+.nice-table thead th {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(8px);
+  font-size: 14px;
+  padding: 14px 10px;
+  white-space: nowrap;
+}
+
+body.light .nice-table thead th {
+  background: rgba(255,255,255,0.9);
+}
+
+.nice-table tbody td {
+  padding: 15px 10px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.nice-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+body.light .nice-table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
 
 /* small screens tweak */
 @media (max-width:400px){
@@ -127,3 +171,4 @@ body.dark .modal input{background:#2c233d;border:1px solid rgba(255,255,255,0.04
 
 /* accessibility - readable */
 :focus{outline:3px solid rgba(106,77,245,0.18);outline-offset:3px}
+
