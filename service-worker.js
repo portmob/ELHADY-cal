@@ -1,4 +1,4 @@
-const CACHE_NAME = 'elhady-pwa-v1';
+const CACHE_NAME = 'elhady-pwa-v2';
 const ASSETS = [
     './',
     './index.html',
@@ -18,3 +18,4 @@ self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
 self.addEventListener('fetch', e => {
     e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(()=> caches.match('./index.html'))));
 });
+
