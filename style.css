@@ -1,88 +1,119 @@
-/* THEME & BASE */
-:root{
-    --accent1:#6a4df5;
-    --accent2:#8f62ff;
-    --bg-dark: linear-gradient(180deg,#07060a 0%, #0b0b10 60%);
-    --bg-light: linear-gradient(180deg,#f7f7fb 0%, #efeefe 60%);
-    --glass: rgba(255,255,255,0.06);
+/* ========================= */
+/*     GLOBAL IMPROVEMENTS   */
+/* ========================= */
+
+body {
+  font-size: 16px;
+  line-height: 1.45;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 }
 
-body{
-    margin:0; font-family:-apple-system,"SF Pro Display",Roboto,Arial; direction:rtl;
-    background: var(--bg-dark); color:#fff; -webkit-font-smoothing:antialiased;
+/* ========================= */
+/*      BUTTONS iOS STYLE    */
+/* ========================= */
+
+.btn-outline,
+.btn-danger {
+  min-width: 100px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 0 12px;
+  cursor: pointer;
+
+  transition: 0.2s;
 }
-body.light{ background: var(--bg-light); color:#111 }
 
-/* safe top */
-.safe-top{height:18px}
+/* تعديل */
+.btn-outline {
+  background: #f5f5f7;
+  color: #111;
+  border: 1px solid #ddd;
+}
+body.dark .btn-outline {
+  background: #2f2f33;
+  border: 1px solid #555;
+  color: #fff;
+}
 
-/* splash */
-.splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;background:linear-gradient(180deg,var(--accent1),var(--accent2));color:#fff}
-.splash img{width:110px;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,0.45)}
-.splash h1{margin-top:12px;font-weight:800}
+/* حذف */
+.btn-danger {
+  background: #ff3b30;
+  color: #fff;
+  border: none;
+}
 
-/* theme button */
-.theme-btn{position:fixed;left:12px;top:12px;z-index:1200;background:rgba(255,255,255,0.06);border:0;color:#fff;padding:8px;border-radius:10px;backdrop-filter:blur(6px)}
-body.light .theme-btn{background:#fff;color:#222}
+/* hover */
+.btn-outline:hover { background: #eaeaea; }
+.btn-danger:hover { opacity: .85; }
 
-/* app container */
-.app{max-width:460px;margin:0 auto;padding:18px 14px 100px;min-height:100vh;box-sizing:border-box}
+/* ========================= */
+/*        TABLE STYLE        */
+/* ========================= */
 
-/* header */
-.app-header{margin-bottom:8px}
-.header-title{font-size:20px;font-weight:800}
-.header-sub{font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px}
-body.light .header-sub{color:#666}
+.nice-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
 
-/* folders grid */
-.folders-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
-.folder-card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:18px;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,0.45);text-align:center;cursor:pointer;transition:transform .18s,box-shadow .18s}
-.folder-card:hover{transform:translateY(-6px)}
-.folder-icon{width:72px;height:72px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:0 10px 30px rgba(124,84,255,0.18)}
-.folder-icon ion-icon{font-size:28px;color:#fff}
-.folder-label{margin-top:8px;font-weight:700}
-.folder-meta{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px}
+.nice-table thead th {
+  padding: 12px 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
 
-/* page top */
-.page-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
-.icon-btn{background:transparent;border:0;padding:6px;color:var(--accent1);font-size:20px;border-radius:10px}
-.page-title{font-weight:800;font-size:18px}
-.page-actions{display:flex;gap:8px}
-.badge{background:rgba(255,255,255,0.08);padding:6px 8px;border-radius:10px;font-weight:700;color:#fff}
+.nice-table tbody td {
+  padding: 12px 8px;
+  font-size: 15px;
+}
 
-/* totals & cards */
-.cards-area{display:flex;gap:12px;margin-top:12px}
-.totals-card{flex:1;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 12px 30px rgba(0,0,0,0.45)}
-.big-num{font-size:20px;font-weight:800;margin-top:6px}
+/* صفوف مناسبة للموبايل */
+.nice-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+body.light .nice-table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
 
-/* table */
-.list-area{margin-top:12px}
-.nice-table{width:100%;border-collapse:collapse;background:transparent}
-.nice-table thead th{color:rgba(255,255,255,0.75);font-size:13px;padding:10px}
-.nice-table tbody td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px}
-body.light .nice-table thead th{color:#666}
-body.light .nice-table tbody td{border-bottom:1px solid rgba(0,0,0,0.06);color:#111}
+/* زرائر داخل الجدول */
+.nice-table button {
+  transform: scale(1.05);
+}
 
-/* buttons */
-.tabbar-wrap{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;pointer-events:none;z-index:1300}
-.tabbar{width: min(720px,92%);display:flex;align-items:center;justify-content:space-around;background:rgba(255,255,255,0.06);backdrop-filter: blur(8px);border-radius:40px;padding:8px 12px;pointer-events:all;box-shadow:0 14px 40px rgba(0,0,0,0.45)}
-.tabbar .tab-btn{background:transparent;border:0;color:#fff;font-size:20px;padding:8px;border-radius:10px;cursor:pointer}
-.body-light .tabbar .tab-btn{color:#222}
-.fab{background:linear-gradient(45deg,var(--accent2),var(--accent1));color:#fff;border:0;width:64px;height:64px;border-radius:34px;font-size:30px;box-shadow:0 20px 60px rgba(106,77,245,0.28);transform:translateY(-18px);display:flex;align-items:center;justify-content:center;cursor:pointer}
+/* ========================= */
+/*       MODAL INPUTS        */
+/* ========================= */
 
-/* modal backdrop + box (solid) */
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:2000}
-.modal{width:92%;max-width:420px;border-radius:14px;padding:16px;background:#fff;color:#111;box-shadow:0 20px 60px rgba(0,0,0,0.5);transform:translateY(10px) scale(.98);opacity:0;transition:transform .18s ease,opacity .18s ease}
-.modal.show{transform:translateY(0) scale(1);opacity:1}
-body.dark .modal{background:#1b1630;color:#fff}
-.modal h3{margin:0 0 8px}
-.modal input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px}
-body.dark .modal input{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#fff}
-.modal .actions{display:flex;gap:8px;justify-content:flex-end}
+.modal input {
+  width: 92%;
+  margin: 8px auto;
+  padding: 12px 10px;
+  font-size: 15px;
 
-/* animations for screens */
-.screen.animate{opacity:0;transform:translateX(10px);transition:opacity .28s ease,transform .28s ease}
-.screen.visible.animate{opacity:1;transform:translateX(0)}
+  border-radius: 12px;
+}
 
-/* responsive */
-@media(min-width:700px){ .app{box-shadow:0 30px 80px rgba(0,0,0,0.6);border-radius:18px;overflow:hidden} }
+/* ========================= */
+/*     PAGE TOP FIX (BUG)    */
+/* ========================= */
+
+.screen {
+  padding-top: 10px !important;  /* إزالة المساحة الفاضية */
+  margin-top: 0 !important;
+}
+
+/* ========================= */
+/*     REMOVE EXTRA TABS     */
+/* ========================= */
+
+.tabbar .tab-btn:last-child {
+  display: none !important;   /* إزالة زرار الويندوز/أبل */
+}
