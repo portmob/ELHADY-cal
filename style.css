@@ -1,293 +1,129 @@
-/* ========================= */
-/*        RESET + BASE       */
-/* ========================= */
+/* ===========================
+   ELHADY Cal+ — Glass iOS18
+   Full stylesheet (copy as-is)
+   =========================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+    font-family:-apple-system,"SF Pro Text","SF Pro Display",BlinkMacSystemFont,Segoe UI,Roboto,Arial;
+    background:linear-gradient(180deg,#07060a 0%, #0b0b10 65%);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    direction:rtl;
+    font-size:16px;
+    line-height:1.45;
 }
 
-body {
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  background: #f2f2f7;
-  color: #000;
-  overflow-x: hidden;
+/* light theme */
+body.light{
+    background:linear-gradient(180deg,#f7f7fb 0%, #efeefe 65%);
+    color:#111;
 }
 
-/* DARK MODE */
-body.dark {
-  background: #1c1c1e;
-  color: #fff;
+/* SPLASH */
+.splash{
+    position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#6a4df5 0%, #8f62ff 100%);color:#fff;
+}
+.splash img{width:120px;border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.45)}
+.splash h1{margin-top:16px;font-weight:800;font-size:26px}
+
+/* utility glass */
+.glass{
+    background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px) saturate(120%);
+    border-radius:14px;
 }
 
-/*===========================*/
-/*       SPLASH SCREEN       */
-/*===========================*/
-
-.splash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  background: linear-gradient(180deg, #6a4df5 0%, #8c62ff 100%);
-  color: #fff;
+/* dark tweaks for glass */
+body.light .glass{
+    background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    border:1px solid rgba(0,0,0,0.06);
 }
 
-.splash img {
-  width: 120px;
-  border-radius: 26px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+/* app container */
+.app{max-width:480px;margin:0 auto;padding:22px 16px 110px;min-height:100vh;box-sizing:border-box}
+
+/* HEADER (home) */
+.header{padding:14px 12px;border-radius:16px}
+.header-left .app-title{font-weight:800;font-size:20px}
+.header-left .app-sub{font-size:12px;color:rgba(255,255,255,0.75);margin-top:6px}
+body.light .app-sub{color:#333}
+
+/* FOLDERS GRID */
+.folders{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.card{padding:16px;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,0.45);text-align:center;cursor:pointer;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-6px)}
+.card .card-icon{width:72px;height:72px;margin:0 auto;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6a4df5,#8f62ff);box-shadow:0 12px 30px rgba(106,77,245,0.15)}
+.card .card-icon ion-icon{font-size:28px;color:#fff}
+.card .card-title{margin-top:10px;font-weight:800}
+.card .card-sub{font-size:12px;color:rgba(255,255,255,0.75);margin-top:6px}
+
+/* small hint */
+.hint{margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6)}
+
+/* TOPBAR (page) */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;margin-top:8px}
+.topbar .back{background:transparent;border:0;color:#fff;font-size:20px;padding:8px;border-radius:10px;cursor:pointer}
+body.light .topbar .back{color:#111}
+.topbar .title{font-size:18px;font-weight:800}
+.right-actions .count{background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:10px}
+
+/* CONTENT */
+.content{margin-top:14px}
+
+/* stats */
+.stats-row{display:flex;gap:12px}
+.glass-card{flex:1;padding:12px;border-radius:12px}
+.glass-card .label{font-size:13px;color:rgba(255,255,255,0.75)}
+.glass-card .value{font-size:20px;font-weight:800;margin-top:6px}
+
+/* list */
+.list-wrap{margin-top:12px;overflow:hidden;border-radius:12px}
+.nice-table{width:100%;border-collapse:collapse;background:transparent}
+.nice-table thead th{padding:12px 8px;text-align:center;color:rgba(255,255,255,0.8);font-size:13px}
+.nice-table tbody td{padding:12px 8px;text-align:center;font-size:15px;border-bottom:1px solid rgba(255,255,255,0.04)}
+body.light .nice-table tbody td{border-bottom:1px solid rgba(0,0,0,0.06);color:#111}
+.nice-table button{padding:6px 8px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+.btn-edit{background:linear-gradient(90deg,#e6f0ff,#d0e6ff);color:#0b3a6f}
+.btn-delete{background:linear-gradient(90deg,#ffdce0,#ffb9c0);color:#6b0a07}
+
+/* TABBAR (bottom glass) */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:5000;display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:44px;box-shadow:0 20px 60px rgba(0,0,0,0.45);background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));backdrop-filter:blur(16px)}
+body.light .tabbar{background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88));box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+.tabbar .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:rgba(255,255,255,0.9);font-size:12px;border:0;background:transparent;cursor:pointer;padding:6px 8px}
+body.light .tabbar .tab{color:#333}
+.tabbar .tab ion-icon{font-size:20px}
+.tabbar .tab.active{color:#6a4df5;font-weight:800}
+
+/* FAB center-right (floating) */
+.fab{background:linear-gradient(135deg,#8f62ff,#6a4df5);color:#fff;border-radius:18px;width:64px;height:64px;font-size:28px;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 24px 60px rgba(106,77,245,0.28);transform:translateY(-8px)}
+
+/* THEME BUTTON (top-left) */
+.circle-btn{position:fixed;left:16px;top:18px;z-index:6000;background:rgba(255,255,255,0.06);border-radius:12px;border:0;padding:10px;color:#fff;backdrop-filter:blur(8px);cursor:pointer}
+body.light .circle-btn{background:#fff;color:#222}
+
+/* MODAL BACKDROP */
+.modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);z-index:8000}
+/* modal box: solid (not transparent) */
+.modal{width:92%;max-width:420px;border-radius:16px;padding:18px;background:#fff;color:#111;box-shadow:0 30px 80px rgba(0,0,0,0.35);transform:translateY(8px) scale(.98);opacity:0;transition:transform .18s ease,opacity .18s ease}
+.modal.show{transform:translateY(0) scale(1);opacity:1}
+body.dark .modal{background:#150f24;color:#fff}
+.modal h3{font-size:18px;margin-bottom:10px}
+.modal input{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.08);margin-bottom:10px;font-size:15px}
+body.dark .modal input{background:#2c233d;border:1px solid rgba(255,255,255,0.04);color:#fff}
+.modal .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
+
+/* small screens tweak */
+@media (max-width:400px){
+    .card .card-icon{width:64px;height:64px}
+    .fab{width:56px;height:56px;font-size:24px}
+    .tabbar{padding:8px 12px;border-radius:36px}
 }
 
-.splash h1 {
-  margin-top: 18px;
-  font-size: 28px;
-  font-weight: 700;
-}
-
-/* ========================= */
-/*         SCREEN AREA       */
-/* ========================= */
-
-.screen {
-  display: none;
-  padding: 10px 14px !important;
-  margin-top: 0 !important;
-}
-
-.screen.visible {
-  display: block;
-}
-
-/* ========================= */
-/*         TAB BAR           */
-/* ========================= */
-
-.tabbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-
-  height: 68px;
-  background: rgba(250,250,250,0.92);
-  backdrop-filter: blur(20px);
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  border-top: 1px solid rgba(0,0,0,0.15);
-  z-index: 4000;
-}
-
-body.dark .tabbar {
-  background: rgba(40,40,43,0.92);
-  border-top: 1px solid rgba(255,255,255,0.15);
-}
-
-.tab-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-
-  color: #555;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-body.dark .tab-btn {
-  color: #bbb;
-}
-
-.tab-btn.active {
-  color: #6a4df5;
-  font-weight: 600;
-}
-
-/* إزالة الأيقونات الزايدة */
-.tab-btn.win,
-.tab-btn.ios {
-  display: none !important;
-}
-
-/* ========================= */
-/*        MAIN BUTTON        */
-/* ========================= */
-
-#fab {
-  position: fixed;
-  bottom: 80px;
-  right: 12px;
-
-  background: #6a4df5;
-  color: #fff;
-
-  width: 60px;
-  height: 60px;
-
-  border-radius: 18px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 26px;
-  cursor: pointer;
-
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  z-index: 5000;
-
-  transition: 0.2s;
-}
-
-#fab:active {
-  transform: scale(0.95);
-}
-
-/* ========================= */
-/*        iOS BUTTONS        */
-/* ========================= */
-
-.btn-ios {
-  min-width: 100px;
-  height: 36px;
-
-  border-radius: 12px;
-  border: 1px solid #ddd;
-
-  background: #f5f5f7;
-  color: #111;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 14px;
-  font-weight: 600;
-  padding: 0 14px;
-
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-body.dark .btn-ios {
-  background: #2c2c2e;
-  border: 1px solid #555;
-  color: #fff;
-}
-
-.btn-ios:hover {
-  background: #e6e6ea;
-}
-
-/* DELETE BUTTON */
-.btn-delete {
-  background: #ff3b30;
-  color: #fff !important;
-  border: none;
-}
-
-.btn-delete:hover {
-  opacity: 0.85;
-}
-
-/* ========================= */
-/*           TABLE           */
-/* ========================= */
-
-.nice-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-}
-
-.nice-table thead th {
-  padding: 12px 6px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.nice-table tbody td {
-  padding: 12px 6px;
-  font-size: 15px;
-}
-
-.nice-table tbody tr {
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-body.dark .nice-table tbody tr {
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.nice-table button {
-  transform: scale(1.1);
-}
-
-/* ========================= */
-/*           MODAL           */
-/* ========================= */
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9000;
-}
-
-.modal {
-  width: 90%;
-  max-width: 420px;
-  padding: 20px;
-
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 6px 30px rgba(0,0,0,0.2);
-
-  animation: pop 0.25s ease-out;
-}
-
-body.dark .modal {
-  background: #2c2c2e;
-}
-
-@keyframes pop {
-  from { transform: scale(0.7); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-
-.modal input {
-  width: 92%;
-  margin: 8px auto;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 15px;
-
-  border: 1px solid #ccc;
-}
-
-body.dark .modal input {
-  background: #3a3a3c;
-  border-color: #555;
-  color: #fff;
-}
-
-/* ACTION BUTTONS INSIDE MODAL */
-.modal .actions {
-  margin-top: 18px;
-  display: flex;
-  justify-content: space-between;
-}
+/* accessibility - readable */
+:focus{outline:3px solid rgba(106,77,245,0.18);outline-offset:3px}

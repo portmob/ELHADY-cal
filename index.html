@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <title>ELHADY Cal+</title>
+    <title>ELHADY Cal+ (Glass iOS18)</title>
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon.png">
@@ -15,120 +15,126 @@
 </head>
 <body>
 
-<div class="safe-top"></div>
-
-<!-- splash -->
+<!-- SPLASH -->
 <div id="splash" class="splash">
-    <img src="icon.png" alt="logo">
-    <h1>ELHADY Cal+</h1>
+    <img src="icon.png" alt="ELHADY">
+    <h1>ELHADY</h1>
 </div>
 
-<!-- theme -->
-<button id="themeBtn" class="theme-btn" title="تبديل الثيم">
-    <ion-icon name="sunny"></ion-icon>
-</button>
+<!-- THEME TOGGLE (top-left) -->
+<button id="themeBtn" class="circle-btn" title="تبديل الثيم"><ion-icon name="sunny"></ion-icon></button>
 
-<!-- app -->
-<div id="app" class="app">
+<!-- APP -->
+<div class="app" id="app">
 
     <!-- HOME -->
-    <section id="home" class="screen visible animate">
-        <header class="app-header">
-            <div class="header-title">اختر ملف</div>
-            <div class="header-sub">ELHADY • الإدارة السريعة</div>
+    <section id="home" class="screen visible">
+        <header class="header glass">
+            <div class="header-left">
+                <div class="app-title">ELHADY</div>
+            </div>
         </header>
 
-        <div class="folders-grid">
-            <div class="folder-card" onclick="openSection('payments')">
-                <div class="folder-icon"><ion-icon name="wallet"></ion-icon></div>
-                <div class="folder-label">المدفوعات</div>
-                <div class="folder-meta">سجل العمليات المالية</div>
+        <div class="grid folders">
+            <div class="card folder" onclick="openSection('payments')">
+                <div class="card-icon"><ion-icon name="wallet"></ion-icon></div>
+                <div class="card-title">المدفوعات</div>
+                <div class="card-sub">سجل المدفوعات</div>
             </div>
 
-            <div class="folder-card" onclick="openSection('supplies')">
-                <div class="folder-icon"><ion-icon name="cube"></ion-icon></div>
-                <div class="folder-label">التوريدات</div>
-                <div class="folder-meta">سجل التوريدات والمخزون</div>
+            <div class="card folder" onclick="openSection('supplies')">
+                <div class="card-icon"><ion-icon name="cube"></ion-icon></div>
+                <div class="card-title">التوريدات</div>
+                <div class="card-sub">سجل التوريدات</div>
             </div>
         </div>
 
-        <div class="home-footer-note">اضغط على أي ملف لفتحه — تجربة شبيهة بتطبيق iOS</div>
     </section>
 
     <!-- PAYMENTS -->
-    <section id="payments" class="screen animate">
-        <div class="page-top">
-            <button class="icon-btn" onclick="openSection('home')"><ion-icon name="chevron-back"></ion-icon></button>
-            <div class="page-title">المدفوعات</div>
-            <div class="page-actions">
-                <div class="badge" id="paymentsCount">0</div>
+    <section id="payments" class="screen">
+        <div class="topbar glass">
+            <button class="back" onclick="openSection('home')"><ion-icon name="chevron-back"></ion-icon></button>
+            <div class="title">المدفوعات</div>
+            <div class="right-actions">
+                <div class="count" id="paymentsCount">0</div>
             </div>
         </div>
 
-        <div class="cards-area">
-            <div class="totals-card">
-                <div>إجمالي الظاهر</div>
-                <div class="big-num" id="totalPayments">0</div>
+        <div class="content">
+            <div class="stats-row">
+                <div class="glass-card">
+                    <div class="label">إجمالي الظاهر</div>
+                    <div class="value" id="totalPayments">0</div>
+                </div>
             </div>
-        </div>
 
-        <div class="list-area">
-            <table id="paymentsTable" class="nice-table">
-                <thead>
-                <tr><th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th></th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="list-wrap">
+                <table id="paymentsTable" class="nice-table">
+                    <thead><tr><th>#</th><th>المرسل</th><th>المستلم</th><th>المبلغ</th><th>التاريخ</th><th></th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </section>
 
     <!-- SUPPLIES -->
-    <section id="supplies" class="screen animate">
-        <div class="page-top">
-            <button class="icon-btn" onclick="openSection('home')"><ion-icon name="chevron-back"></ion-icon></button>
-            <div class="page-title">التوريدات</div>
-            <div class="page-actions">
-                <div class="badge" id="suppliesCount">0</div>
+    <section id="supplies" class="screen">
+        <div class="topbar glass">
+            <button class="back" onclick="openSection('home')"><ion-icon name="chevron-back"></ion-icon></button>
+            <div class="title">التوريدات</div>
+            <div class="right-actions">
+                <div class="count" id="suppliesCount">0</div>
             </div>
         </div>
 
-        <div class="cards-area">
-            <div class="totals-card">
-                <div>إجمالي الكمية</div>
-                <div class="big-num" id="totalSupplies">0</div>
+        <div class="content">
+            <div class="stats-row">
+                <div class="glass-card">
+                    <div class="label">إجمالي الكمية</div>
+                    <div class="value" id="totalSupplies">0</div>
+                </div>
             </div>
-        </div>
 
-        <div class="list-area">
-            <table id="suppliesTable" class="nice-table">
-                <thead>
-                <tr><th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th></th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="list-wrap">
+                <table id="suppliesTable" class="nice-table">
+                    <thead><tr><th>#</th><th>المرسل</th><th>المستلم</th><th>الكمية</th><th>النوع</th><th>التاريخ</th><th></th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </section>
 
 </div> <!-- /app -->
 
-<!-- bottom tab bar (glass) -->
-<div class="tabbar-wrap">
-    <div class="tabbar glass">
-        <button class="tab-btn" onclick="onTab('view')"><ion-icon name="grid"></ion-icon></button>
-        <button class="tab-btn" onclick="onTab('filter')"><ion-icon name="funnel"></ion-icon></button>
+<!-- BOTTOM GLASS TABBAR -->
+<div class="tabbar glass">
+    <button class="tab" onclick="onTab('view')" title="عرض"><ion-icon name="grid"></ion-icon><span>عرض</span></button>
+    <button class="tab" onclick="onTab('filter')" title="فلتر"><ion-icon name="funnel"></ion-icon><span>فلتر</span></button>
 
-        <button id="fab" class="fab" title="إضافة">+</button>
+    <button id="fab" class="fab" title="إضافة">+</button>
 
-        <button class="tab-btn" onclick="onTab('export')"><ion-icon name="cloud-download"></ion-icon></button>
-        <button class="tab-btn" onclick="onTab('ios')"><ion-icon name="logo-apple"></ion-icon></button>
-    </div>
+    <button class="tab" onclick="onTab('export')" title="تصدير"><ion-icon name="cloud-download"></ion-icon><span>تصدير</span></button>
+    <!-- removed extra OS/windows buttons per request -->
 </div>
 
-<!-- modal -->
+<!-- MODAL BACKDROP -->
 <div id="modalBackdrop" class="modal-backdrop"></div>
 
-<!-- libs and app -->
+<!-- hidden filter inputs for persistence -->
+<input id="fp_sender" type="hidden">
+<input id="fp_receiver" type="hidden">
+<input id="fp_start" type="hidden">
+<input id="fp_end" type="hidden">
+
+<input id="fs_sender" type="hidden">
+<input id="fs_receiver" type="hidden">
+<input id="fs_start" type="hidden">
+<input id="fs_end" type="hidden">
+
+<!-- XLSX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- app -->
 <script src="app.js"></script>
 </body>
 </html>
