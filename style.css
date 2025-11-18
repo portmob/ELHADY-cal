@@ -1,57 +1,108 @@
+/* Colors & theme vars */
 :root{
-    --bg:#000;
-    --text:#fff;
-    --outline:#2196f3;
-    --outline-hover:#42a5f5;
-    --card:#0b0b0b;
-    --muted:#9aa3b2;
-    --danger:#f44336;
+    --bg:#f5f6fa; /* overridden in dark */
+    --surface:#ffffff;
+    --card:#111;
+    --text:#0b0b0b;
+    --muted:#7b7f8a;
+    --accent1:#6a4df5; /* purple */
+    --accent2:#8f62ff;
+    --accent-iv:#7b61ff;
+    --glass: rgba(255,255,255,0.06);
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Segoe UI,Roboto,Arial;direction:rtl;padding:16px}
-.splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:var(--bg);z-index:9999}
-.splash img{width:120px;height:120px;border-radius:20px;object-fit:cover;box-shadow:0 8px 30px rgba(0,0,0,.6)}
-.splash h1{color:var(--outline);margin:0;font-size:22px}
 
-.header{text-align:center;margin-bottom:8px}
-.header h2{display:flex;gap:8px;align-items:center;justify-content:center;margin:0}
-.tab{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
-.tab-btn{background:transparent;border:2px solid var(--outline);color:var(--outline);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
-.tab-btn:hover{background:var(--outline);color:#fff}
-.tab-btn.active{background:var(--outline);color:#fff;box-shadow:0 8px 24px rgba(33,150,243,.18)}
-
-.container{max-width:960px;margin:0 auto}
-.card{background:var(--card);padding:12px;border-radius:12px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,.6)}
-.card-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.top-actions .actions-right{display:flex;gap:8px}
-
-.outline-btn{background:transparent;border:2px solid var(--outline);color:var(--outline);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
-.outline-btn:hover{background:var(--outline);color:#fff;box-shadow:0 6px 18px rgba(33,150,243,.12)}
-
-.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.filter-row input{background:#0d0d0d;border:1px solid #222;padding:8px;border-radius:10px;color:var(--text);min-width:120px}
-
-.total-box{background:linear-gradient(90deg,rgba(6,42,79,.65),rgba(2,16,39,.5));padding:10px;border-radius:8px;margin-top:10px;font-weight:700}
-
-.table-wrap{margin-top:10px}
-table{width:100%;border-collapse:collapse;color:var(--text);min-width:0}
-th,td{padding:10px 8px;border-bottom:1px solid #151515;text-align:center;font-size:14px}
-thead th{color:var(--muted);font-size:13px}
-.btn-danger{border:2px solid var(--danger);color:var(--danger);background:transparent;padding:6px 10px;border-radius:10px;cursor:pointer}
-.btn-danger:hover{background:var(--danger);color:#fff;box-shadow:0 6px 12px rgba(244,67,54,.12)}
-
-.cards{display:none;flex-direction:column;gap:10px;margin-top:10px}
-.card-item{background:#0b0b0b;padding:12px;border-radius:12px}
-
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:2000}
-.modal{background:var(--card);padding:14px;border-radius:12px;width:92%;max-width:520px}
-.modal h3{margin:0 0 10px;color:var(--outline)}
-.modal-row{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
-.modal input{padding:8px;border-radius:8px;border:1px solid #222;background:#060606;color:var(--text)}
-
-@media (max-width:720px){
-    table{display:none}
-    .cards{display:flex}
-    .filter-row{flex-direction:column}
-    .tab{gap:6px}
+/* dark default */
+body {
+    margin:0;
+    font-family:-apple-system, "SF Pro Display", Roboto, Arial;
+    direction:rtl;
+    background: linear-gradient(180deg,#07060a 0%, #0b0b10 60%);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
 }
+
+/* light theme */
+body.light {
+    background: linear-gradient(180deg,#f7f7fb 0%, #efeefe 60%);
+    color:#111;
+}
+
+/* safe top for notch */
+.safe-top{height:20px}
+
+/* SPLASH */
+.splash{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:9999;
+    background:transparent;color:var(--accent1);
+}
+.splash img{width:110px;border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,0.5)}
+.splash h1{color:var(--accent1);letter-spacing:0.6px}
+
+/* theme button */
+.theme-btn{position:fixed;left:14px;top:14px;z-index:1200;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px;border-radius:10px;backdrop-filter:blur(6px)}
+body.light .theme-btn{background:#fff;border:1px solid rgba(0,0,0,0.06);color:#222}
+
+/* app container */
+.app{max-width:460px;margin:0 auto;padding:18px 14px 84px;min-height:100vh;box-sizing:border-box}
+
+/* header */
+.app-header{margin-bottom:8px}
+.header-title{font-size:20px;font-weight:700}
+.header-sub{font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px}
+
+/* folders */
+.folders-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.folder-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:18px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.45);text-align:center;cursor:pointer;transition:all .18s ease
+}
+.folder-card:hover{transform:translateY(-6px)}
+.folder-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:0 8px 30px rgba(124,84,255,0.18)}
+.folder-icon ion-icon{font-size:28px;color:#fff}
+.folder-label{margin-top:8px;font-weight:700}
+.folder-meta{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px}
+
+/* page top */
+.page-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.icon-btn{background:transparent;border:0;padding:6px;color:var(--accent1);font-size:20px;border-radius:10px}
+.page-title{font-weight:800;font-size:18px}
+.page-actions{display:flex;gap:8px}
+
+/* small buttons */
+.small-btn{background:rgba(255,255,255,0.06);border:0;color:#fff;padding:6px 8px;border-radius:10px;font-size:14px}
+body.light .small-btn{background:#fff;color:#222}
+
+/* cards area */
+.cards-area{display:flex;gap:12px;margin-top:12px}
+.totals-card{flex:1;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+.totals-card .big-num{font-size:20px;font-weight:800;margin-top:6px}
+
+/* list area */
+.list-area{margin-top:12px}
+.nice-table{width:100%;border-collapse:collapse;background:transparent}
+.nice-table thead th{color:rgba(255,255,255,0.7);font-size:13px;padding:10px}
+.nice-table tbody td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px}
+.btn-outline{border:1px solid rgba(255,255,255,0.12);background:transparent;color:#fff;padding:6px 8px;border-radius:8px}
+.btn-danger{border:1px solid rgba(255,0,0,0.2);background:transparent;color:#ff9b9b;padding:6px 8px;border-radius:8px}
+body.light .nice-table thead th{color:#666}
+body.light .nice-table tbody td{border-bottom:1px solid rgba(0,0,0,0.06);color:#111}
+body.light .btn-outline{border:1px solid rgba(0,0,0,0.08);color:#222}
+
+/* bottom nav + FAB */
+.bottom-nav{position:fixed;left:0;right:0;bottom:12px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.fab{pointer-events:all;background:linear-gradient(45deg,var(--accent2),var(--accent1));color:#fff;border:0;width:60px;height:60px;border-radius:30px;font-size:30px;box-shadow:0 18px 40px rgba(106,77,245,0.28);display:flex;align-items:center;justify-content:center}
+.nav-spacer{flex:1}
+
+/* modal */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:2000}
+.modal{width:92%;max-width:420px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:14px;border-radius:14px;color:#fff}
+.modal h3{margin:0 0 8px}
+.modal input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-bottom:8px}
+.modal .actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* responsive tweaks */
+@media (min-width:700px){
+    .app{box-shadow:0 30px 80px rgba(0,0,0,0.6);border-radius:20px;overflow:hidden}
+}
+
