@@ -1,7 +1,21 @@
 /* register SW (ignore errors) */
-if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').then(reg => {
+    if (reg.waiting) {
+      reg.waiting.postMessage("skipWaiting");
+    }
+    reg.onupdatefound = () => {
+      const newWorker = reg.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          newWorker.postMessage("skipWaiting");
+          location.reload();
+        }
+      };
+    };
+  });
 }
+
 
 /* storage init */
 let payments = JSON.parse(localStorage.getItem('payments') || '[]');
@@ -336,3 +350,4 @@ function exportSupplies(){
 
 /* init render */
 renderPayments(); renderSupplies();
+
