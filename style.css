@@ -1,61 +1,208 @@
 /* ========================= */
-/*     GLOBAL IMPROVEMENTS   */
+/*        RESET + BASE       */
 /* ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-size: 16px;
-  line-height: 1.45;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  background: #f2f2f7;
+  color: #000;
+  overflow-x: hidden;
+}
+
+/* DARK MODE */
+body.dark {
+  background: #1c1c1e;
+  color: #fff;
+}
+
+/*===========================*/
+/*       SPLASH SCREEN       */
+/*===========================*/
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(180deg, #6a4df5 0%, #8c62ff 100%);
+  color: #fff;
+}
+
+.splash img {
+  width: 120px;
+  border-radius: 26px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.splash h1 {
+  margin-top: 18px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 /* ========================= */
-/*      BUTTONS iOS STYLE    */
+/*         SCREEN AREA       */
 /* ========================= */
 
-.btn-outline,
-.btn-danger {
+.screen {
+  display: none;
+  padding: 10px 14px !important;
+  margin-top: 0 !important;
+}
+
+.screen.visible {
+  display: block;
+}
+
+/* ========================= */
+/*         TAB BAR           */
+/* ========================= */
+
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  height: 68px;
+  background: rgba(250,250,250,0.92);
+  backdrop-filter: blur(20px);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-top: 1px solid rgba(0,0,0,0.15);
+  z-index: 4000;
+}
+
+body.dark .tabbar {
+  background: rgba(40,40,43,0.92);
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+body.dark .tab-btn {
+  color: #bbb;
+}
+
+.tab-btn.active {
+  color: #6a4df5;
+  font-weight: 600;
+}
+
+/* إزالة الأيقونات الزايدة */
+.tab-btn.win,
+.tab-btn.ios {
+  display: none !important;
+}
+
+/* ========================= */
+/*        MAIN BUTTON        */
+/* ========================= */
+
+#fab {
+  position: fixed;
+  bottom: 80px;
+  right: 12px;
+
+  background: #6a4df5;
+  color: #fff;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 26px;
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 5000;
+
+  transition: 0.2s;
+}
+
+#fab:active {
+  transform: scale(0.95);
+}
+
+/* ========================= */
+/*        iOS BUTTONS        */
+/* ========================= */
+
+.btn-ios {
   min-width: 100px;
   height: 36px;
+
+  border-radius: 12px;
+  border: 1px solid #ddd;
+
+  background: #f5f5f7;
+  color: #111;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
+  padding: 0 14px;
 
-  padding: 0 12px;
   cursor: pointer;
-
   transition: 0.2s;
 }
 
-/* تعديل */
-.btn-outline {
-  background: #f5f5f7;
-  color: #111;
-  border: 1px solid #ddd;
-}
-body.dark .btn-outline {
-  background: #2f2f33;
+body.dark .btn-ios {
+  background: #2c2c2e;
   border: 1px solid #555;
   color: #fff;
 }
 
-/* حذف */
-.btn-danger {
+.btn-ios:hover {
+  background: #e6e6ea;
+}
+
+/* DELETE BUTTON */
+.btn-delete {
   background: #ff3b30;
-  color: #fff;
+  color: #fff !important;
   border: none;
 }
 
-/* hover */
-.btn-outline:hover { background: #eaeaea; }
-.btn-danger:hover { opacity: .85; }
+.btn-delete:hover {
+  opacity: 0.85;
+}
 
 /* ========================= */
-/*        TABLE STYLE        */
+/*           TABLE           */
 /* ========================= */
 
 .nice-table {
@@ -65,55 +212,82 @@ body.dark .btn-outline {
 }
 
 .nice-table thead th {
-  padding: 12px 8px;
+  padding: 12px 6px;
   font-size: 14px;
   font-weight: 700;
 }
 
 .nice-table tbody td {
-  padding: 12px 8px;
+  padding: 12px 6px;
   font-size: 15px;
 }
 
-/* صفوف مناسبة للموبايل */
 .nice-table tbody tr {
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-body.light .nice-table tbody tr {
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
-/* زرائر داخل الجدول */
+body.dark .nice-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
 .nice-table button {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 /* ========================= */
-/*       MODAL INPUTS        */
+/*           MODAL           */
 /* ========================= */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9000;
+}
+
+.modal {
+  width: 90%;
+  max-width: 420px;
+  padding: 20px;
+
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+
+  animation: pop 0.25s ease-out;
+}
+
+body.dark .modal {
+  background: #2c2c2e;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
 
 .modal input {
   width: 92%;
   margin: 8px auto;
-  padding: 12px 10px;
+  padding: 12px;
+  border-radius: 12px;
   font-size: 15px;
 
-  border-radius: 12px;
+  border: 1px solid #ccc;
 }
 
-/* ========================= */
-/*     PAGE TOP FIX (BUG)    */
-/* ========================= */
-
-.screen {
-  padding-top: 10px !important;  /* إزالة المساحة الفاضية */
-  margin-top: 0 !important;
+body.dark .modal input {
+  background: #3a3a3c;
+  border-color: #555;
+  color: #fff;
 }
 
-/* ========================= */
-/*     REMOVE EXTRA TABS     */
-/* ========================= */
-
-.tabbar .tab-btn:last-child {
-  display: none !important;   /* إزالة زرار الويندوز/أبل */
+/* ACTION BUTTONS INSIDE MODAL */
+.modal .actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
 }
