@@ -97,7 +97,8 @@ function renderPayments(){
         if (fp_end && pd > new Date(fp_end)) return false;
         return true;
     });
-
+    /* HERE: Reverse order */
+    data = data.slice().reverse();
     tbody.innerHTML = data.map((p,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -106,8 +107,8 @@ function renderPayments(){
       <td>${Number(p.amount).toLocaleString()}</td>
       <td>${fmt(p.date)}</td>
       <td>
-        <button class="btn-edit" onclick="editPayment(${i})">تعديل</button>
-        <button class="btn-delete" onclick="deletePayment(${i})">حذف</button>
+        <button class="btn-edit" onclick="editPayment(${(payments.length - 1 - i)})">تعديل</button>
+        <button class="btn-delete" onclick="deletePayment(${(payments.length - 1 - i)})">حذف</button>
       </td>
     </tr>
   `).join('');
@@ -224,7 +225,7 @@ function renderSupplies(){
         if (fs_end && sd > new Date(fs_end)) return false;
         return true;
     });
-
+    data = data.slice().reverse();
     tbody.innerHTML = data.map((s,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -234,8 +235,8 @@ function renderSupplies(){
       <td>${escapeHtml(s.type)}</td>
       <td>${fmt(s.date)}</td>
       <td>
-        <button class="btn-edit" onclick="editSupply(${i})">تعديل</button>
-        <button class="btn-delete" onclick="deleteSupply(${i})">حذف</button>
+        <button class="btn-edit" onclick="editSupply(${supplies.length - 1 - i})">تعديل</button>
+        <button class="btn-delete" onclick="deleteSupply(${supplies.length - 1 - i})">حذف</button>
       </td>
     </tr>
   `).join('');
