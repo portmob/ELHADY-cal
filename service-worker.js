@@ -1,4 +1,4 @@
-const CACHE_NAME = 'elhady-cache-v1';
+const CACHE_NAME = 'elhady-pwa-v1';
 const ASSETS = [
     './',
     './index.html',
