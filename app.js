@@ -56,6 +56,7 @@ function openSection(id){
     // re-render
     if (id === 'payments') renderPayments();
     if (id === 'supplies') renderSupplies();
+    if (id==='labor') renderLabor();
 }
 
 /* initially home */
