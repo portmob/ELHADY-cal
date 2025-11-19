@@ -47,6 +47,12 @@
                 <div class="card-title">التوريدات</div>
                 <div class="card-sub">سجل التوريدات</div>
             </div>
+            <div class="card folder" onclick="openSection('labor')">
+                <div class="card-icon"><ion-icon name="people"></ion-icon></div>
+                <div class="card-title">العمالة الشهرية</div>
+                <div class="card-sub">الحضور اليومي والشهري</div>
+            </div>
+
         </div>
 
     </section>
@@ -104,6 +110,47 @@
             </div>
         </div>
     </section>
+
+    <section id="labor" class="screen">
+        <div class="topbar glass">
+            <button class="back" onclick="openSection('home')"><ion-icon name="chevron-back"></ion-icon></button>
+            <div class="title">العمالة الشهرية</div>
+            <div class="right-actions">
+                <div class="count" id="laborCount">0</div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="stats-row">
+                <div class="glass-card">
+                    <div class="label">عدد السجلات</div>
+                    <div class="value" id="laborTotal">0</div>
+                </div>
+            </div>
+
+            <div class="list-wrap">
+                <table id="laborTable" class="nice-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>العامل</th>
+                        <th>المقاول</th>
+                        <th>حضور يوم</th>
+                        <th>حضور سهرة</th>
+                        <th>مكان العمل</th>
+                        <th>اليوم</th>
+                        <th>الشهر</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
 
 </div> <!-- /app -->
 

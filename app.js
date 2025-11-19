@@ -31,8 +31,12 @@ const modalBackdrop = ds('modalBackdrop');
 
 let payments = JSON.parse(localStorage.getItem('payments')||'[]');
 let supplies = JSON.parse(localStorage.getItem('supplies')||'[]');
-
-function saveAll(){ localStorage.setItem('payments', JSON.stringify(payments)); localStorage.setItem('supplies', JSON.stringify(supplies)); }
+let labor = JSON.parse(localStorage.getItem('labor') || '[]');
+function saveAll(){
+    localStorage.setItem('payments', JSON.stringify(payments));
+    localStorage.setItem('supplies', JSON.stringify(supplies));
+    localStorage.setItem('labor', JSON.stringify(labor));
+}
 
 /* splash hide */
 window.addEventListener('load', ()=> setTimeout(()=> { const s=ds('splash'); if(s) s.style.display='none'; }, 800));
@@ -61,6 +65,7 @@ openSection('home');
 ds('fab').addEventListener('click', ()=> {
     if (ds('payments').classList.contains('visible')) openAddPayment();
     else if (ds('supplies').classList.contains('visible')) openAddSupply();
+    else if (ds('labor').classList.contains('visible')) openAddLabor();
     else openSection('payments');
 });
 
@@ -329,6 +334,140 @@ function exportSupplies(){
     XLSX.writeFile(wb,'ELHADY_Supplies.xlsx');
 }
 
+function renderLabor(){
+    const tbody = document.querySelector('#laborTable tbody');
+
+    let data = labor.slice().reverse(); // يظهر من الجديد للقديم
+
+    tbody.innerHTML = data.map((p,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${p.worker}</td>
+      <td>${p.contractor}</td>
+      <td>${p.day ? "✔" : "✘"}</td>
+      <td>${p.night ? "✔" : "✘"}</td>
+      <td>${p.place}</td>
+      <td>${p.dayNo}</td>
+      <td>${p.month}</td>
+      <td>
+        <button class="btn-edit" onclick="editLabor(${labor.length - 1 - i})">تعديل</button>
+        <button class="btn-delete" onclick="deleteLabor(${labor.length - 1 - i})">حذف</button>
+      </td>
+    </tr>
+  `).join('');
+
+    ds('laborCount').textContent = labor.length;
+    ds('laborTotal').textContent = labor.length;
+}
+
+function openAddLabor(){
+    openModal(`
+    <h3>إضافة حضور عامل</h3>
+
+    <input id="l_worker" placeholder="اسم العامل">
+    <input id="l_contractor" placeholder="المقاول">
+    <input id="l_place" placeholder="مكان العمل">
+
+    <div style="margin-top:10px;font-size:14px;">حضور يوم</div>
+    <input id="l_day" type="checkbox">
+
+    <div style="margin-top:10px;font-size:14px;">حضور سهرة</div>
+    <input id="l_night" type="checkbox">
+
+    <input id="l_dayNo" type="number" placeholder="اليوم">
+    <input id="l_month" placeholder="الشهر (مثال 2025-02)">
+
+    <div class="actions">
+      <button class="btn-ios" onclick="closeModal()">إلغاء</button>
+      <button class="btn-ios" id="saveLaborBtn">حفظ</button>
+    </div>
+  `);
+
+    ds("saveLaborBtn").onclick = () => {
+        labor.push({
+            worker: ds('l_worker').value,
+            contractor: ds('l_contractor').value,
+            place: ds('l_place').value,
+            day: ds('l_day').checked,
+            night: ds('l_night').checked,
+            dayNo: ds('l_dayNo').value,
+            month: ds('l_month').value
+        });
+        saveAll();
+        closeModal();
+        renderLabor();
+    };
+}
+
+function editLabor(i){
+    const p = labor[i];
+
+    openModal(`
+    <h3>تعديل حضور</h3>
+
+    <input id="l_worker" value="${p.worker}">
+    <input id="l_contractor" value="${p.contractor}">
+    <input id="l_place" value="${p.place}">
+
+    <label>حضور يوم</label>
+    <input id="l_day" type="checkbox" ${p.day ? "checked" : ""}>
+
+    <label>حضور سهرة</label>
+    <input id="l_night" type="checkbox" ${p.night ? "checked" : ""}>
+
+    <input id="l_dayNo" value="${p.dayNo}">
+    <input id="l_month" value="${p.month}">
+
+    <div class="actions">
+      <button class="btn-ios" onclick="closeModal()">إلغاء</button>
+      <button class="btn-ios" id="saveEditLaborBtn">حفظ</button>
+    </div>
+  `);
+
+    ds("saveEditLaborBtn").onclick = () => {
+        labor[i] = {
+            worker: ds('l_worker').value,
+            contractor: ds('l_contractor').value,
+            place: ds('l_place').value,
+            day: ds('l_day').checked,
+            night: ds('l_night').checked,
+            dayNo: ds('l_dayNo').value,
+            month: ds('l_month').value
+        };
+        saveAll();
+        closeModal();
+        renderLabor();
+    };
+}
+
+function deleteLabor(i){
+    if(!confirm("مسح سجل العمالة؟")) return;
+    labor.splice(i,1);
+    saveAll();
+    renderLabor();
+}
+
+function exportLabor(){
+    if(!labor.length) return alert("لا يوجد بيانات");
+
+    const data = labor.map((p,i) => ({
+        "#": i + 1,
+        "العامل": p.worker,
+        "المقاول": p.contractor,
+        "حضور يوم": p.day ? "نعم" : "لا",
+        "حضور سهرة": p.night ? "نعم" : "لا",
+        "مكان العمل": p.place,
+        "اليوم": p.dayNo,
+        "الشهر": p.month
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Labor");
+
+    XLSX.writeFile(wb, "ELHADY_Labor.xlsx");
+}
+
 /* TAB BAR actions */
 function onTab(name){
     if(name === 'view'){ /* go home or keep current */ openSection('home'); }
@@ -339,6 +478,7 @@ function onTab(name){
     } else if(name === 'export'){
         if (ds('payments').classList.contains('visible')) exportPayments();
         else if (ds('supplies').classList.contains('visible')) exportSupplies();
+        else if(ds('labor').classList.contains('visible')) exportLabor();
         else exportPayments();
     }
 }
