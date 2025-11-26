@@ -1,4 +1,4 @@
-e{
+{
   "name": "ELHADY Cal+ (Glass)",
   "short_name": "ELHADY",
   "start_url": "./index.html",
@@ -10,4 +10,5 @@ e{
     { "src": "icon.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
+
 
