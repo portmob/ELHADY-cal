@@ -1,6 +1,6 @@
 /* service-worker.js — ELHADY PWA (MD3 Update) */
 
-const CACHE_NAME = "elhady-md-v1";
+const CACHE_NAME = "elhady-md-v2";
 const ASSETS = [
     "./",
     "./index.html",

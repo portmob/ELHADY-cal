@@ -27,31 +27,46 @@ function saveAll() {
    Navigation & UI
    --------------------------- */
 function openSection(id) {
-    // Hide all
+    // إخفاء كل الشاشات
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
 
-    // Show target
-    ds(id).classList.add('visible');
+    // إظهار الشاشة المطلوبة
+    const target = document.getElementById(id);
+    if(target) target.classList.add('visible');
+
     currentSection = id;
 
-    // Update Top Bar Title
+    // تحديث العناوين
     const titles = {
         'home': 'ELHADY',
         'payments': 'المدفوعات',
         'supplies': 'التوريدات',
         'labor': 'العمالة'
     };
-    ds('pageTitle').textContent = titles[id] || 'ELHADY';
+    document.getElementById('pageTitle').textContent = titles[id] || 'ELHADY';
 
-    // Update Bottom Nav Active State
+    // تحديث حالة البار السفلي (Bottom Nav)
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(id === 'home') ds('nav-home').classList.add('active');
+    if(id === 'home') {
+        const navHome = document.getElementById('nav-home');
+        if(navHome) navHome.classList.add('active');
+    }
 
-    // Show/Hide FAB based on section
-    if (id === 'home') ds('fab').style.display = 'none';
-    else ds('fab').style.display = 'flex';
+    // === التحكم في زر الرجوع وزر الإضافة (FAB) ===
+    const fab = document.getElementById('fab');
+    const backBtn = document.getElementById('backBtn');
 
-    // Re-render data
+    if (id === 'home') {
+        // نحن في الرئيسية: أخفِ زر الرجوع وأخفِ زر الإضافة
+        fab.style.display = 'none';
+        backBtn.style.display = 'none';
+    } else {
+        // نحن في صفحة فرعية: أظهر زر الرجوع وأظهر زر الإضافة
+        fab.style.display = 'flex';
+        backBtn.style.display = 'flex';
+    }
+
+    // إعادة تحميل البيانات حسب القسم
     if (id === 'payments') renderPayments();
     if (id === 'supplies') renderSupplies();
     if (id === 'labor') renderLabor();
