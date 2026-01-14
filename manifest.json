@@ -1,14 +1,12 @@
 {
-  "name": "ELHADY Cal+ (Glass)",
+  "name": "ELHADY",
   "short_name": "ELHADY",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fefefe",
-  "theme_color": "#00b4db",
+  "background_color": "#FDFBFF",
+  "theme_color": "#3567D8",
   "icons": [
     { "src": "icon.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icon.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
-
-
