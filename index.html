@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#fdfbff">
-    <title>ELHADY</title>
+    <meta name="theme-color" content="#EEF0F7"> <title>ELHADY Cal+</title>
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon.png">
@@ -12,23 +11,17 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
 
 <div class="app">
 
     <header class="top-app-bar">
-        <button class="icon-btn" id="backBtn" onclick="openSection('home')" style="display: none;">
+        <button class="icon-btn" id="backBtn" onclick="openSection('home')" style="display:none">
             <span class="material-symbols-rounded">arrow_forward</span>
         </button>
-
         <div class="headline" id="pageTitle" style="flex:1; margin-right:8px;">ELHADY</div>
-
-        <button class="icon-btn" id="themeBtn" title="تبديل الثيم">
-            <span class="material-symbols-rounded">dark_mode</span>
-        </button>
+        <button class="icon-btn" id="themeBtn"><span class="material-symbols-rounded">dark_mode</span></button>
     </header>
 
     <main>
@@ -36,126 +29,103 @@
             <div class="hero-card">
                 <img src="icon.png" class="hero-logo" alt="Logo">
                 <h2>أهلاً بك</h2>
-                <p>نظام إدارة الحسابات والعمالة</p>
+                <p>نظام إدارة الحسابات المتقدم</p>
             </div>
 
             <div class="grid-menu">
-                <div class="md3-card interactable" onclick="openSection('payments')">
-                    <span class="material-symbols-rounded icon-large">account_balance_wallet</span>
-                    <div class="card-text">
-                        <h3>المدفوعات</h3>
-                        <p>سجل مالي</p>
-                    </div>
+                <div class="menu-card" onclick="openSection('payments')">
+                    <span class="material-symbols-rounded">account_balance_wallet</span>
+                    <h3>المدفوعات</h3>
                 </div>
-
-                <div class="md3-card interactable" onclick="openSection('supplies')">
-                    <span class="material-symbols-rounded icon-large">inventory_2</span>
-                    <div class="card-text">
-                        <h3>التوريدات</h3>
-                        <p>إدارة المخزون</p>
-                    </div>
+                <div class="menu-card" onclick="openSection('supplies')">
+                    <span class="material-symbols-rounded">inventory_2</span>
+                    <h3>التوريدات</h3>
                 </div>
-
-                <div class="md3-card interactable" onclick="openSection('labor')">
-                    <span class="material-symbols-rounded icon-large">engineering</span>
-                    <div class="card-text">
-                        <h3>العمالة</h3>
-                        <p>الحضور والانصراف</p>
-                    </div>
+                <div class="menu-card" onclick="openSection('labor')">
+                    <span class="material-symbols-rounded">engineering</span>
+                    <h3>العمالة</h3>
                 </div>
             </div>
         </section>
 
         <section id="payments" class="screen">
-            <div class="summary-card surface-variant">
-                <div class="col">
-                    <span class="label">عدد العمليات</span>
-                    <span class="val" id="paymentsCount">0</span>
+            <div class="summary-row">
+                <div class="summary-item">
+                    <span class="lbl">الشهر الحالي</span>
+                    <span class="val" id="pay_curr">0</span>
                 </div>
-                <div class="divider-v"></div>
-                <div class="col">
-                    <span class="label">الإجمالي</span>
-                    <span class="val price" id="totalPayments">0</span>
+                <div class="summary-item">
+                    <span class="lbl">الشهر السابق</span>
+                    <span class="val" id="pay_prev">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="lbl">الكل</span>
+                    <span class="val" id="pay_all">0</span>
                 </div>
             </div>
 
-            <div class="list-container">
-                <table class="md3-table" id="paymentsTable">
-                    <thead><tr><th>#</th><th>من/إلى</th><th>المبلغ</th><th>التاريخ</th><th></th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+            <div class="card-list" id="paymentsList"></div>
         </section>
 
         <section id="supplies" class="screen">
-            <div class="summary-card surface-variant">
-                <div class="col">
-                    <span class="label">عدد التوريدات</span>
-                    <span class="val" id="suppliesCount">0</span>
+            <div class="summary-row">
+                <div class="summary-item">
+                    <span class="lbl">كمية حالية</span>
+                    <span class="val" id="sup_curr">0</span>
                 </div>
-                <div class="divider-v"></div>
-                <div class="col">
-                    <span class="label">الكمية</span>
-                    <span class="val" id="totalSupplies">0</span>
+                <div class="summary-item">
+                    <span class="lbl">كمية سابقة</span>
+                    <span class="val" id="sup_prev">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="lbl">الكل</span>
+                    <span class="val" id="sup_all">0</span>
                 </div>
             </div>
-
-            <div class="list-container">
-                <table class="md3-table" id="suppliesTable">
-                    <thead><tr><th>#</th><th>من/إلى</th><th>الكمية/النوع</th><th>التاريخ</th><th></th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+            <div class="card-list" id="suppliesList"></div>
         </section>
 
         <section id="labor" class="screen">
-            <div class="summary-card surface-variant">
-                <div class="col">
-                    <span class="label">السجلات</span>
-                    <span class="val" id="laborCount">0</span>
+            <div class="summary-row">
+                <div class="summary-item">
+                    <span class="lbl">سجلات حالية</span>
+                    <span class="val" id="lab_curr">0</span>
                 </div>
-                <div class="divider-v"></div>
-                <div class="col">
-                    <span class="label">العمال</span>
-                    <span class="val" id="laborTotal">0</span>
+                <div class="summary-item">
+                    <span class="lbl">سجلات سابقة</span>
+                    <span class="val" id="lab_prev">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="lbl">الكل</span>
+                    <span class="val" id="lab_all">0</span>
                 </div>
             </div>
-
-            <div class="list-container">
-                <table class="md3-table" id="laborTable">
-                    <thead><tr><th>العامل</th><th>الحضور</th><th>الموقع</th><th></th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+            <div class="card-list" id="laborList"></div>
         </section>
     </main>
 
-    <button class="fab" id="fab">
+    <button class="fab" id="fab" style="display:none">
         <span class="material-symbols-rounded">add</span>
     </button>
 
     <nav class="navigation-bar">
         <button class="nav-item active" onclick="openSection('home')" id="nav-home">
-            <span class="icon-container"><span class="material-symbols-rounded">home</span></span>
+            <span class="icon-box"><span class="material-symbols-rounded">home</span></span>
             <span class="label">الرئيسية</span>
         </button>
-        <button class="nav-item" onclick="onTab('filter')">
-            <span class="icon-container"><span class="material-symbols-rounded">filter_list</span></span>
-            <span class="label">فلترة</span>
+        <button class="nav-item" onclick="openFilterModal()">
+            <span class="icon-box"><span class="material-symbols-rounded">search</span></span>
+            <span class="label">بحث</span>
         </button>
-        <button class="nav-item" onclick="onTab('export')">
-            <span class="icon-container"><span class="material-symbols-rounded">download</span></span>
+        <button class="nav-item" onclick="exportCurrentData()">
+            <span class="icon-box"><span class="material-symbols-rounded">download</span></span>
             <span class="label">تصدير</span>
         </button>
     </nav>
 
 </div>
 
-<div class="dialog-backdrop" id="modalBackdrop">
-</div>
-
-<input id="fp_sender" type="hidden"><input id="fp_receiver" type="hidden"><input id="fp_start" type="hidden"><input id="fp_end" type="hidden">
-<input id="fs_sender" type="hidden"><input id="fs_receiver" type="hidden"><input id="fs_start" type="hidden"><input id="fs_end" type="hidden">
+<div class="dialog-backdrop" id="modalBackdrop"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="app.js"></script>
